@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradients Gallery</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app" class="container mx-auto p-4">
+
+        <!-- Title and description -->
+
+        <div class="bg-gray-200 rounded-full mb-3 mx-1 w-1/2 mx-auto">
+            <h1 class="text-6xl font-bold text-center py-4" style="background: linear-gradient(to right, #ff6a00, #ee0979, #9c14b6); -webkit-background-clip: text; color: transparent; ">Gradients Gallery</h1>
+            <h2 class="pb-3 font-bold text-center">Instantly copy from a large selection of gradients for your CSS Project!</h2>
+        </div>
+
+        <div class="w-full bg-blue-200 px-8 py-4 mb-5 flex rounded-full gap-4 justify-center mx-auto">
+
+            <!-- Blue BUtton -->
+            <div class="bg-blue-50 rounded-lg p-2 flex">
+                <input type="checkbox" id="" v-model="blue" class="h-6 w-6" style="accent-color: #3f89c5;">
+                <div class="w-1"></div>
+                <label for="checkbox" class="h-6 font-bold">
+                    <h1>Blues</h1>
+                </label>
+            </div>
+
+            <!-- Green Button -->
+            <div class="bg-blue-50 rounded-lg p-2 flex">
+                <input type="checkbox" id="" v-model="green" class="h-6 w-6" style="accent-color: #5c9b21;">
+                <div class="w-1"></div>
+                <label for="checkbox" class="h-6 font-bold">
+                    <h1>Greens</h1>
+                </label>
+            </div>
+
+            <!-- Yellow Button -->
+            <div class="bg-blue-50 rounded-lg p-2 flex">
+                <input type="checkbox" id="" v-model="yellow" class="h-6 w-6" style="accent-color: #e4f831;">
+                <div class="w-1"></div>
+                <label for="checkbox" class="h-6 font-bold">
+                    <h1>Yellows</h1>
+                </label>
+            </div>
+
+            <!-- Orange Button -->
+            <div class="bg-blue-50 rounded-lg p-2 flex">
+                <input type="checkbox" id="" v-model="orange" class="h-6 w-6" style="accent-color: #f8a231;">
+                <div class="w-1"></div>
+                <label for="checkbox" class="h-6 font-bold">
+                    <h1>Oranges</h1>
+                </label>
+            </div>  
+            
+            <!-- Purple Button -->
+            <div class="bg-blue-50 rounded-lg p-2 flex">
+                <input type="checkbox" id="" v-model="purple" class="h-6 w-6" style="accent-color: #a7347b;">
+                <div class="w-1"></div>
+                <label for="checkbox" class="h-6 font-bold">
+                    <h1>Purples</h1>
+                </label>
+            </div>  
+
+            <!-- Pink Button -->
+            <div class="bg-blue-50 rounded-lg p-2 flex">
+                <input type="checkbox" id="" v-model="pink" class="h-6 w-6" style="accent-color: #e622e6;">
+                <div class="w-1"></div>
+                <label for="checkbox" class="h-6 font-bold">
+                    <h1>Pinks</h1>
+                </label>
+            </div>  
+
+            <!-- Red Button -->
+            <div class="bg-blue-50 rounded-lg p-2 flex">
+                <input type="checkbox" id="" v-model="red" class="h-6 w-6" style="accent-color: #c0392b;">
+                <div class="w-1"></div>
+                <label for="checkbox" class="h-6 font-bold">
+                    <h1>Reds</h1>
+                </label>
+            </div>
+
+        </div>
+
+        <!-- Gradients Library -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" >
+
+            <!-- Gradient Entries -->
+            <div v-for="(gradient, index) in gradientsFunction()" :key="index"
+                class="p-4 border border-gray-200 rounded-lg">
+
+                <!-- Gradient Preview -->
+                <div :style="{ background: gradient }" class="h-32 rounded-lg"></div>
+
+                <!-- Button Component -->
+                <div class="flex justify-center">
+                    <button class="mt-2 bg-blue-500 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-full"
+                        @click="copyGradient(gradient, index)">
+                            <h2 v-if="copiedIndex === index">Copied</h2>
+                            <h2 v-else>Copy Gradient</h2>
+                    </button>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+
+    <!-- Vue Script -->
+    <script>
+
+        // Vue App
+        new Vue({
+            el: '#app',
+            data: {
+
+                // Gradients
+                blueGradients: [
+                    'linear-gradient(to right, #56CCF2, #2F80ED)',
+                    'linear-gradient(135deg, #3494E6, #EC6EAD)',
+                    'linear-gradient(to bottom, #56CCF2, #0097E6)',
+                    'linear-gradient(to bottom, #3498db, #2980b9)',
+                    'linear-gradient(to right, #2196F3, #4ECDC4)',
+                    'linear-gradient(to top right, #4682B4, #63b8ff)',
+                    'linear-gradient(225deg, #2CD8D5, #6B8DD6)'
+                ],
+
+                purpleGradients: [
+                    'linear-gradient(315deg, #FC466B, #3F5EFB)',
+                    'linear-gradient(to right, #9b59b6, #8e44ad)',
+                    'linear-gradient(to top right, #a020f0, #8a2be2)',
+                    'linear-gradient(to right, #c56cf0, #9139d8)',
+                    'linear-gradient(to bottom, #9b59b6, #763568)',
+                    'linear-gradient(to top right, #59c173, #a17fe0)'
+                ],
+
+                redGradients: [
+                    'linear-gradient(to top right, #dc143c, #ff4500)',
+                    'linear-gradient(to right, #e74c3c, #c0392b)',
+                    'linear-gradient(to bottom, #e74c3c, #b03a1e)',
+                    'linear-gradient(to right, #ffa07a, #e9967a)',
+                    'linear-gradient(to bottom, #fa8072, #cd5c5c)',
+                    'linear-gradient(to right, #f08080, #dc143c)'
+                ],
+
+                pinkGradients: [
+                    'linear-gradient(to top right, #ff9a9e, #fecfef)',
+                    'linear-gradient(to bottom, #fd79a8, #fab1a0)',
+                    'linear-gradient(180deg, #C9FFBF, #FFAFBD)',
+                    'radial-gradient(circle at top, #ffcccc, #ff99cc)',
+                    'linear-gradient(to right, #ffb3ba, #ffdfba)',
+                    'linear-gradient(to left, #ffc2b3, #ffd5cd)',
+                    'linear-gradient(to bottom right, #ffcccb, #ffe9cd)',
+                    'linear-gradient(to top, #ffb6c1, #ffc9c8)',
+                    'linear-gradient(to bottom left, #ffc4c3, #ffe7c8)'
+                ],
+
+                yellowGradients: [
+                    'linear-gradient(to right, #ffeaa7, #ff9ff3)',
+                    'linear-gradient(to bottom, #fdcb6e, #d1d8e0)',
+                    'linear-gradient(to top, #f9ca24, #f0932b)',
+                    'linear-gradient(to right, #f6e58d, #ff7675)',
+                    'linear-gradient(to left, #f9ca24, #f0932b)',
+                    'linear-gradient(to right, #ffcc29, #ffdf22)',
+                    'radial-gradient(circle, #fceabb, #f3dc58)',
+                    'radial-gradient(circle, #f9ca24, #f0932b)',
+                    'linear-gradient(to bottom right, #f6e58d, #ff7675)',
+                    'linear-gradient(to top left, #ffeaa7, #ff9ff3)'
+
+                ],
+
+                orangeGradients: [
+                    'linear-gradient(to right, #f39c12, #e67e22)',
+                    'linear-gradient(to bottom, #f39c12, #d35400)',
+                    'linear-gradient(to top right, #ff7f50, #ff6347)',
+                    'linear-gradient(45deg, #FFC312, #EE5A24)',
+                    'linear-gradient(to top right, #ff6347, #ff4500)'
+                ],
+
+                greenGradients: [
+                    'linear-gradient(to right, #27ae60, #2ecc71)',
+                    'linear-gradient(to right, #2ecc71, #27ae60)',
+                    'linear-gradient(to bottom, #2ecc71, #16a085)',
+                    'linear-gradient(to top right, #45CE30, #30CFD0)',
+                    'linear-gradient(to top right, #77d4d4, #6f9c8d)',
+                    'linear-gradient(to right, #2ecc71, #27ae60)'
+                ],
+
+                // Selected color bools
+                blue: true,
+                red: true,
+                green: true,
+                yellow: true,
+                orange: true,
+                purple: true,
+                pink: true, 
+
+                //Clicked button index
+                copiedIndex: -1
+
+            },
+
+            // Vue Methods
+            methods: {
+                
+                // Gradoemt copying and button text changing logic
+                copyGradient(gradient, index) {
+                    const el = document.createElement('textarea');
+                    el.value = gradient;
+                    document.body.appendChild(el);
+                    el.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(el);
+                    
+                    // Change text to and from "Copied"
+                    this.copiedIndex = index;
+                    setTimeout(() => {
+                        this.copiedIndex = -1;
+                    }, 500);
+                },
+
+
+                gradientsFunction() {
+
+                    //All gradients to be printed
+                    let loadedGradients = [];
+
+                    //Gradients by color
+                    let blueGradients = this.blueGradients;
+                    let redGradients = this.redGradients;
+                    let greenGradients = this.greenGradients;
+                    let yellowGradients = this.yellowGradients;
+                    let orangeGradients = this.orangeGradients;
+                    let purpleGradients = this.purpleGradients;
+                    let pinkGradients = this.pinkGradients;
+
+                    //Gradient filter
+                    if (this.blue) {
+                        loadedGradients.push(...blueGradients);
+                    }
+                    if (this.green) {
+                        loadedGradients.push(...greenGradients);
+                    }
+                    if (this.yellow) {
+                        loadedGradients.push(...yellowGradients);
+                    }
+                    if (this.orange) {
+                        loadedGradients.push(...orangeGradients);
+                    }
+                    if (this.purple) {
+                        loadedGradients.push(...purpleGradients);
+                    }
+                    if (this.pink) {
+                        loadedGradients.push(...pinkGradients);
+                    }
+                    if (this.red) {
+                        loadedGradients.push(...redGradients);
+                    }
+ 
+
+                    return loadedGradients;
+
+                }
+            },
+        });
+    </script>
+</body>
+
+<footer class="flex justify-center text-center mx-auto mt-8">
+    <div class="bg-gray-900 w-full h5 py-8" style="background: linear-gradient(to bottom, #3498db, #748ed6);">
+        <h3 class="text-white font-bold text-lg" style="text-shadow: 1px 1px #000000;">Developed by <a
+                href="https://www.linkedin.com/in/ashton-torgerud-a3b54025b/" style="text-decoration: underline;">Ashton
+                Torgerud</a> | @ashtorged.outlook.com</h3>
+    </div>
+</footer>
+
+
+</html>
